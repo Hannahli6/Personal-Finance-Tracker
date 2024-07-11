@@ -13,3 +13,10 @@ The user is able to add and delete expense entries. Additionally, the app will a
 This project is of interest to me because I find myself buying a lot of unneeded items and having no accurate awareness of how much I was spending each month, which leads me to saving less money. I wanted to make this app so I can learn Java in the process and see how the final developed application can help my piggy bank! 
 
 
+## **User Stories**
+- As a user, I want to be able to add an expense entry to my list of expenses specifying the category , date , amount spent and extra note/detail.
+- As a user, I want to be able to delete an expense entry from the list
+- As a user, I want to be able to view the list of expenses 
+- As a user, I want to see a visualization of my spending based on date or the category
+- As a user, I want to see the saving balance amount
+- As a user, I want to see a warning indication for overspending 
