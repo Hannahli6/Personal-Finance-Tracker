@@ -15,6 +15,7 @@ This project is of interest to me because I find myself buying a lot of unneeded
 
 ## **User Stories**
 - As a user, I want to be able to add an expense entry to my list of expenses specifying the category , date , amount spent and extra note/detail.
+- As a user, I want to be able to edit an expense entry 
 - As a user, I want to be able to delete an expense entry from the list
 - As a user, I want to be able to view the list of expenses (all expenses, expenses from specific category)
 - As a user, I want to arrange my list of expenses based on the date (latest to earliest)
