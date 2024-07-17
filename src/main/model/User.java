@@ -8,8 +8,8 @@ public class User {
     private boolean overExpenseLimit;
 
     // EFFECTS: constructs a User object, with over expense limit to false and total expense amount to 0 dollars.
-    public User(double limit) {
-        this.ExpenseLimitPerMonth = limit; 
+    public User() {
+        this.ExpenseLimitPerMonth = 0; 
         this.totalExpenseAmount = 0;
         this.overExpenseLimit = false;
     }
@@ -37,7 +37,7 @@ public class User {
 
     //MODFIES: this
     //EFFECTS: sets the user's total expense amount to the new given amount
-    public void setTotalExpenseAmount (double newExpenseAmount) {
-        this.totalExpenseAmount = newExpenseAmount;
+    public void addToTotalExpenseAmount (double newExpenseAmount) {
+        this.totalExpenseAmount += newExpenseAmount;
     }
 }

@@ -1,28 +1,36 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 // A expense tracker application that allows the user to 
 // - add expense entries
 // - delete expense entries
 // - edit their expense entries
-// - display ALL expense entries or display specific category expense entries
+
 public class ExpenseTracker {
 
     private ArrayList<ExpenseEntry> listOfExpenseEntries;
-    //private final String LISTOFCATEGORIES[] = { "Transportation", "Bills", "Education",
-    // "Entertainment", "Food", "Sport" };
+    private int largestIdNum;
+
 
     // EFFECTS: creates an instance of the ExpenseTrackerApp console ui application
     public ExpenseTracker() {
         // initalize empty list of entries
         listOfExpenseEntries = new ArrayList<>();
+        largestIdNum = 0;
     }
 
     // MODIFIES: this
     // EFFECTS: adds a new Expense Entry to the list of expense entries
     public void addExpenseEntry(ExpenseEntry newEntry) {
+        int uniqueId;
+
         listOfExpenseEntries.add(newEntry);
+        uniqueId = largestIdNum;
+        largestIdNum++;
+        newEntry.setId(uniqueId);
+        
     }
 
     //REQUIRES: at least one expense entry & id given is valid

@@ -15,13 +15,13 @@ public class ExpenseEntry {
 
     //REQUIRIES: unique id
     //EFFECTS: constructs an expense entry with name, catgeory, expense amount, note, id
-    public ExpenseEntry (String name, String category, double expenseAmount, String note, LocalDate date, int id) {
+    public ExpenseEntry (String name, String category, double expenseAmount, String note, LocalDate date) {
         this.name = name;
         this.category = category;
         this.expenseAmount = expenseAmount;
         this.note = note;
         this.date = date;
-        this.id = id;
+        this.id = 0;
     }
 
     //getters

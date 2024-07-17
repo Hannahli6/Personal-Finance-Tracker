@@ -23,15 +23,13 @@ public class TestExpenseTracker {
                 "Food",
                 18.50,
                 "my friend's birthday dinner",
-                LocalDate.of(2024, 7, 15),
-                0);
+                LocalDate.of(2024, 7, 15));
         entry1 = new ExpenseEntry(
                 "compass card",
                 "Transportation",
                 100,
                 "monthly compass card",
-                LocalDate.of(2024, 7, 15),
-                1);
+                LocalDate.of(2024, 7, 15));
     }
 
     @Test
@@ -47,6 +45,7 @@ public class TestExpenseTracker {
         
         //add two
         myExpenseTracker.addExpenseEntry(entry1);
+        entry1.setId(1);
         assertEquals(2, myExpenseTracker.getListOfExpenseEntries().size());
         assertEquals("compass card", myExpenseTracker.getListOfExpenseEntries().get(1).getName());
     }
@@ -54,7 +53,9 @@ public class TestExpenseTracker {
     @Test
     void testEditExpenseEntry() {
         myExpenseTracker.addExpenseEntry(entry0);
+        entry0.setId(0);
         myExpenseTracker.addExpenseEntry(entry1);
+        entry1.setId(1);
 
         myExpenseTracker.editExpenseEntry("sushi", "Food", 30.99, "expensive sushi",0);
         assertEquals("sushi", myExpenseTracker.getListOfExpenseEntries().get(0).getName());
@@ -74,6 +75,7 @@ public class TestExpenseTracker {
     @Test
     void testDeleteExpenseEntry() {
         myExpenseTracker.addExpenseEntry(entry0);
+        entry0.setId(0);
         assertEquals(1, myExpenseTracker.getListOfExpenseEntries().size());
         myExpenseTracker.deleteExpenseEntry(0);
         assertEquals(0, myExpenseTracker.getListOfExpenseEntries().size());
@@ -83,7 +85,9 @@ public class TestExpenseTracker {
     @Test
     void testFindExpenseEntry() {
         myExpenseTracker.addExpenseEntry(entry0);
+        entry1.setId(0);
         myExpenseTracker.addExpenseEntry(entry1);
+        entry1.setId(1);
         assertEquals(myExpenseTracker.getListOfExpenseEntries().get(1), myExpenseTracker.findExpenseEntry(1));
         assertEquals(null, myExpenseTracker.findExpenseEntry(99));
     }
@@ -91,8 +95,10 @@ public class TestExpenseTracker {
     @Test
     void testGetListOfExpenseEntries() {
         myExpenseTracker.addExpenseEntry(entry0);
+        entry0.setId(0);
         assertEquals("ramen", myExpenseTracker.getListOfExpenseEntries().get(0).getName());
         myExpenseTracker.addExpenseEntry(entry1);
+        entry1.setId(1);
         assertEquals("ramen", myExpenseTracker.getListOfExpenseEntries().get(0).getName());
         assertEquals("compass card", myExpenseTracker.getListOfExpenseEntries().get(1).getName());
     }

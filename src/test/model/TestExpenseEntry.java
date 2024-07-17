@@ -18,8 +18,7 @@ public class TestExpenseEntry {
                 "Food",
                 18.50,
                 "my friend's birthday dinner",
-                LocalDate.of(2024, 7, 15),
-                0);
+                LocalDate.of(2024, 7, 15));
     }
 
     @Test
