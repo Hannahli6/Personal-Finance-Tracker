@@ -3,6 +3,7 @@ package ui;
 import java.time.format.DateTimeParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import model.ExpenseEntry;
@@ -23,7 +24,7 @@ public class ExpenseTrackerApp {
         initializeApp();
         displayLongDivider();
         System.out.println("Welcome to your Personal Expense Tracker app!");
-        displayShortDivider();
+        displayLongDivider();
         handlePromptExpenseLimit();
         while (this.activeProgram) {
             displayMainMenu();
@@ -40,13 +41,15 @@ public class ExpenseTrackerApp {
         this.activeProgram = true;
     }
 
+    // EFFECTS: handle main menu user input
+    @SuppressWarnings("methodlength")
     public void handleMainMenu(String userInput) {
         switch (userInput) {
             case "w":
                 handlePromptAddExpenseEntry();
                 break;
             case "e":
-                // edit
+                handlePromptEditExpenseEntry();
                 break;
             case "r":
                 handlePromptDeleteExpenseEntry();
@@ -61,6 +64,7 @@ public class ExpenseTrackerApp {
                 displayUserExpenseAmountInformation();
                 break;
             case "i":
+                // not implemented yet...
                 break;
             case "q":
                 exitProgram();
@@ -76,62 +80,106 @@ public class ExpenseTrackerApp {
 
         displayLongDivider();
         System.out.println("\nADD EXPENSE ENTRY");
-        displayShortDivider();
 
+        ArrayList<Object> entryInfoList = getEntryInfoList("");
+
+        String name = (String) entryInfoList.get(0);
+        String category = (String) entryInfoList.get(1);
+        double expenseAmount = (double) entryInfoList.get(2);
+        String note = (String) entryInfoList.get(3);
+        LocalDate date = (LocalDate) entryInfoList.get(4);
+
+        ExpenseEntry newEntry = new ExpenseEntry(name, category, expenseAmount, note, date);
+        expenseTracker.addExpenseEntry(newEntry);
+
+        displayLongDivider();
+        System.out.println("\nNew Expense Entry has been created!");
+        displayLongDivider();
+
+    }
+
+    public ArrayList<Object> getEntryInfoList(String functionalityName) {
+        ArrayList<Object> entryInfoList = new ArrayList<>();
         // name
-        System.out.println("\nEnter Expense Entry Name:");
+        System.out.println("\n" + functionalityName + "Enter Expense Entry Name:");
         String name = this.scanner.nextLine();
-
         // category
-        System.out.println("\nEnter Expense Category ");
-        System.out.println("\n[Transportation , Bills, Food, Education, Entertainment, Sport]");
+        System.out.println("\n" + functionalityName + "Enter Expense Category ");
+        System.out.println("[Transportation , Bills, Food, Education, Entertainment, Sport]");
         String category = this.scanner.nextLine();
-
         // expense amount
-        System.out.println("\nEnter Expense amount");
+        System.out.println("\n" + functionalityName + "Enter Expense amount");
         double expenseAmount = this.scanner.nextDouble();
         this.scanner.nextLine();
-        while (expenseAmount < 0){
-            System.out.println("No Negative expense amount!");
-            System.out.println("\nEnter Expense amount again!");
+        // abstract this
+        while (expenseAmount < 0) {
+            System.out.println("No Negative expense amount! \n Enter Expense amount again!");
             expenseAmount = this.scanner.nextDouble();
             this.scanner.nextLine();
         }
-
         // note
-        System.out.println("\nEnter additional notes for this entry");
+        System.out.println("\n" + functionalityName + "Enter additional notes for this entry");
         String note = this.scanner.nextLine();
+        // date
+        LocalDate date = getDateFromPrompt();
+        entryInfoList.add(name);
+        entryInfoList.add(category);
+        entryInfoList.add(expenseAmount);
+        entryInfoList.add(note);
+        entryInfoList.add(date);
+        return entryInfoList;
+    }
 
-        // date 
+    public void handlePromptEditExpenseEntry() {
+
+        int id;
+        displayLongDivider();
+        System.out.println("Edit Expense Entry");
+        displayLongDivider();
+        System.out.println("Please enter the Id of the expense entry that you want to edit!");
+        id = this.scanner.nextInt();
+        this.scanner.nextLine();
+
+        if (expenseTracker.findExpenseEntry(id) != null) {
+
+            ArrayList<Object> entryInfoList = getEntryInfoList("Edit: ");
+            String name = (String) entryInfoList.get(0);
+            String category = (String) entryInfoList.get(1);
+            double expenseAmount = (double) entryInfoList.get(2);
+            String note = (String) entryInfoList.get(3);
+            LocalDate date = (LocalDate) entryInfoList.get(4);
+
+            expenseTracker.editExpenseEntry(name, category, expenseAmount, note, date, id);
+            System.out.println("\nYour expense entry id: " + id + "has been edited!");
+
+        } else {
+            System.out.println("invalid ID! No entries edited!");
+        }
+    }
+
+    public LocalDate getDateFromPrompt() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         boolean validTimeFormat = false;
         LocalDate date = null;
 
-        while(!validTimeFormat){
+        while (!validTimeFormat) {
             try {
                 System.out.println("\nEnter the date yyyy-mm-dd");
-                String dateStr = this.scanner.nextLine();  
-                date = LocalDate.parse(dateStr, formatter);  
+                String dateStr = this.scanner.nextLine();
+                date = LocalDate.parse(dateStr, formatter);
                 validTimeFormat = true;
             } catch (DateTimeParseException e) {
                 System.out.println("Invalid date format!!");
             }
         }
-
-        ExpenseEntry newEntry = new ExpenseEntry(name, category, expenseAmount, note, date);
-    
-        expenseTracker.addExpenseEntry(newEntry);
-        user.addToTotalExpenseAmount(expenseAmount);
-        displayLongDivider();
-        System.out.println("\nNew Expense Entry has been created!");
-        displayLongDivider();
+        return date;
     }
 
     public void handlePromptDeleteExpenseEntry() {
         int id;
         displayLongDivider();
         System.out.println("Delete Expense Entry: ");
-        displayShortDivider();
+        displayLongDivider();
         System.out.println("Enter the expense entry id that you want to delete from the list: ");
         id = this.scanner.nextInt();
         this.scanner.nextLine();
@@ -139,19 +187,19 @@ public class ExpenseTrackerApp {
             expenseTracker.deleteExpenseEntry(id);
         } else {
             System.out.println("invalid ID! No entries deleted!");
-        } 
+        }
 
     }
 
     public void handlePromptExpenseLimit() {
         System.out.println("Please enter your expense limit per month\n");
         double limit = this.scanner.nextDouble();
-        while(limit < 0) {
+        while (limit < 0) {
             System.out.println("No Negative expense limit! Please enter your expense limit per month\n");
             limit = this.scanner.nextDouble();
         }
-        user.setExpenseLimitPerMonth(limit);
         this.scanner.nextLine();
+        user.setExpenseLimitPerMonth(limit);
         System.out.println("\nYou have set your expense limit per month to: $" + user.getExpenseLimitPerMonth());
     }
 
@@ -163,6 +211,8 @@ public class ExpenseTrackerApp {
             displayLongDivider();
             String category = this.scanner.nextLine();
 
+
+            displayLongDivider();
             System.out.println("\nView " + category + " category");
             displayLongDivider();
             for (ExpenseEntry entry : expenseTracker.getListOfExpenseEntries()) {
@@ -176,6 +226,8 @@ public class ExpenseTrackerApp {
     }
 
     public void displayExpenseEntriesAll() {
+        displayLongDivider();
+        System.out.println("View ALL expense entries");
         if (!expenseTracker.getListOfExpenseEntries().isEmpty()) {
             for (ExpenseEntry entry : expenseTracker.getListOfExpenseEntries()) {
                 displayExpenseEntry(entry);
@@ -190,15 +242,15 @@ public class ExpenseTrackerApp {
 
     public void displayUserExpenseAmountInformation() {
         double limit = user.getExpenseLimitPerMonth();
-        double totalExpense = user.getTotalExpenseAmount(); 
+        double totalExpense = expenseTracker.getTotalExpenseAmount();
         displayLongDivider();
         System.out.println("User expense limit / amunt details:");
-        displayShortDivider();
+        displayLongDivider();
         System.out.println("Your expense limit per month : $" + limit);
-        if (user.getOverExpenseLimit()) {
+        if (user.getOverExpenseLimit(totalExpense)) {
             System.out.println("You have reached / reached over your expense limit for the month!");
         }
-        System.out.println("You have remaining $ " +  (limit - totalExpense) + " to expense!");
+        System.out.println("You have remaining $ " + (limit - totalExpense) + " to expense!");
         System.out.println("Your total expense amount : $ " + totalExpense);
         displayLongDivider();
     }
@@ -215,14 +267,10 @@ public class ExpenseTrackerApp {
         System.out.println("===================================================");
     }
 
-    public void displayShortDivider() {
-        System.out.println("---------------------------");
-    }
-
     public void displayExpenseEntry(ExpenseEntry entry) {
         displayLongDivider();
-        System.out.println("Expense Entry Details:");
-        displayShortDivider();
+        System.out.println("Expense Entry #" + entry.getId());
+        displayLongDivider();
 
         System.out.println("Name: " + entry.getName());
         System.out.println("Id: " + entry.getId());
@@ -237,7 +285,7 @@ public class ExpenseTrackerApp {
     public void displayMainMenu() {
         displayLongDivider();
         System.out.println("Main Menu");
-        displayShortDivider();
+        displayLongDivider();
 
         System.out.println("w: Add an expense entry");
         System.out.println("e: Edit an expense entry");
