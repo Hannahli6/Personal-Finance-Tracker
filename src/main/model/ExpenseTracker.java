@@ -14,7 +14,6 @@ public class ExpenseTracker {
     private ArrayList<ExpenseEntry> listOfExpenseEntries;
     private int largestIdNum;
 
-
     // EFFECTS: creates an instance of the ExpenseTrackerApp console ui application
     public ExpenseTracker() {
         // initalize empty list of entries
@@ -30,10 +29,10 @@ public class ExpenseTracker {
         listOfExpenseEntries.add(newEntry);
         uniqueId = largestIdNum;
         largestIdNum++;
-        newEntry.setId(uniqueId);        
+        newEntry.setId(uniqueId);
     }
 
-    //REQUIRES: at least one expense entry & id given is valid
+    // REQUIRES: at least one expense entry & id given is valid
     // MODIFIES: ExpenseEntry
     // EFFECTS: edits an Expense Entry given new expense entry information
     public void editExpenseEntry(String name, String category, double amount, String note, LocalDate date, int id) {
@@ -47,7 +46,7 @@ public class ExpenseTracker {
         toBeEditedExpenseEntry.setNote(note);
     }
 
-    //REQUIRES: id to be valid
+    // REQUIRES: id to be valid
     // MODIFIES: this
     // EFFECTS: deletes a new Expense Entry from the list of expense entries
     public void deleteExpenseEntry(int id) {
@@ -61,7 +60,8 @@ public class ExpenseTracker {
         return listOfExpenseEntries;
     }
 
-    // EFFECTS: find and return the expense entry given the entry id, otherwise return null
+    // EFFECTS: find and return the expense entry given the entry id, otherwise
+    // return null
     public ExpenseEntry findExpenseEntry(int id) {
         for (ExpenseEntry entry : listOfExpenseEntries) {
             if (id == entry.getId()) {
@@ -71,13 +71,13 @@ public class ExpenseTracker {
         return null;
     }
 
-    //EFFECTS: get the total expense amount 
-    public double getTotalExpenseAmount () {
+    // EFFECTS: get the total expense amount
+    public double getTotalExpenseAmount() {
         double total = 0;
         for (ExpenseEntry entry : listOfExpenseEntries) {
             total += entry.getExpenseAmount();
         }
         return total;
-    };
+    }
 
 }
