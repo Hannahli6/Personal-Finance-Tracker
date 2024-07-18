@@ -11,7 +11,6 @@ import model.ExpenseTracker;
 import model.User;
 
 // A expense tracker application
-// - display ALL expense entries or display specific category expense entries
 public class ExpenseTrackerApp {
 
     private User user;
@@ -76,6 +75,7 @@ public class ExpenseTrackerApp {
         }
     }
 
+    //EFFECTS: get a list of expense entry details and adding each of those details to an expense entry 
     public void handlePromptAddExpenseEntry() {
 
         displayLongDivider();
@@ -98,6 +98,7 @@ public class ExpenseTrackerApp {
 
     }
 
+    //EFFECTS: ask user for entry details and returning a list of those properties
     public ArrayList<Object> getEntryInfoList(String functionalityName) {
         ArrayList<Object> entryInfoList = new ArrayList<>();
         // name
@@ -130,6 +131,7 @@ public class ExpenseTrackerApp {
         return entryInfoList;
     }
 
+    //EFFECTS: get a new list of expense entry details that the user as edited and replacing each of those details to a corresponding expense entry 
     public void handlePromptEditExpenseEntry() {
 
         int id;
@@ -157,6 +159,7 @@ public class ExpenseTrackerApp {
         }
     }
 
+    //EFFECTS: ask user to input yyy-mm-dd format for the date, if its a valid date, return date otherwise ask the user again to input another date until it's valid
     public LocalDate getDateFromPrompt() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         boolean validTimeFormat = false;
@@ -175,6 +178,7 @@ public class ExpenseTrackerApp {
         return date;
     }
 
+    //EFFECTS: ask the user to input a valid entry id and delete the entry from the list
     public void handlePromptDeleteExpenseEntry() {
         int id;
         displayLongDivider();
@@ -191,6 +195,7 @@ public class ExpenseTrackerApp {
 
     }
 
+    //EFFECTS: ask the user to input the expense limit amount
     public void handlePromptExpenseLimit() {
         System.out.println("Please enter your expense limit per month\n");
         double limit = this.scanner.nextDouble();
@@ -203,6 +208,7 @@ public class ExpenseTrackerApp {
         System.out.println("\nYou have set your expense limit per month to: $" + user.getExpenseLimitPerMonth());
     }
 
+    //EFFECTS: ask the user to input the expense category to display the list of expenses from that category
     public void displayExpenseEntriesFromCategory() {
         if (!expenseTracker.getListOfExpenseEntries().isEmpty()) {
             displayLongDivider();
@@ -225,6 +231,7 @@ public class ExpenseTrackerApp {
         }
     }
 
+    //EFFECTS: display all expense entries
     public void displayExpenseEntriesAll() {
         displayLongDivider();
         System.out.println("View ALL expense entries");
@@ -240,6 +247,7 @@ public class ExpenseTrackerApp {
 
     }
 
+    //EFFECTS: display the user's expense limit amount and total expense amount and overspending warning message
     public void displayUserExpenseAmountInformation() {
         double limit = user.getExpenseLimitPerMonth();
         double totalExpense = expenseTracker.getTotalExpenseAmount();
@@ -255,6 +263,7 @@ public class ExpenseTrackerApp {
         displayLongDivider();
     }
 
+    //EFFECTS: stop running the application
     public void exitProgram() {
         displayLongDivider();
         System.out.println("You have exited out the app!");
@@ -267,6 +276,7 @@ public class ExpenseTrackerApp {
         System.out.println("===================================================");
     }
 
+    //EFFECTS: print out the format of each expense entry
     public void displayExpenseEntry(ExpenseEntry entry) {
         displayLongDivider();
         System.out.println("Expense Entry #" + entry.getId());

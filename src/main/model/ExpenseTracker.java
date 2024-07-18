@@ -7,6 +7,7 @@ import java.util.ArrayList;
 // - add expense entries
 // - delete expense entries
 // - edit their expense entries
+// - get total expense amount
 
 public class ExpenseTracker {
 
@@ -70,6 +71,7 @@ public class ExpenseTracker {
         return null;
     }
 
+    //EFFECTS: get the total expense amount 
     public double getTotalExpenseAmount () {
         double total = 0;
         for (ExpenseEntry entry : listOfExpenseEntries) {
