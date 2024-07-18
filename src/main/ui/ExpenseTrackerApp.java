@@ -10,7 +10,10 @@ import model.ExpenseEntry;
 import model.ExpenseTracker;
 import model.User;
 
-// A expense tracker application
+// CODE ATTRIBUTE: Lab 3
+// A expense tracker console ui application that displays expense tracker information and 
+// allows the user to interact with  in the console for 
+// adding, editing, deleting, viewing their expense entries
 public class ExpenseTrackerApp {
 
     private User user;
@@ -24,7 +27,7 @@ public class ExpenseTrackerApp {
         displayLongDivider();
         System.out.println("Welcome to your Personal Expense Tracker app!");
         displayLongDivider();
-        handlePromptExpenseLimit();
+        handlePromptExpenseLimit(); //get expense limit
         while (this.activeProgram) {
             displayMainMenu();
             String userInput = this.scanner.nextLine();
@@ -133,7 +136,7 @@ public class ExpenseTrackerApp {
     }
 
     // EFFECTS: get a new list of expense entry details that the user as edited and
-    // replacing each of those details to a corresponding expense entry
+    //          replacing each of those details to a corresponding expense entry
     public void handlePromptEditExpenseEntry() {
 
         int id;
@@ -162,8 +165,8 @@ public class ExpenseTrackerApp {
     }
 
     // EFFECTS: ask user to input yyy-mm-dd format for the date,
-    // if its a valid date, return date
-    // otherwise ask the user again to input another date until it's valid
+    //          if its a valid date, return date
+    //          otherwise ask the user again to input another date until it's valid
     public LocalDate getDateFromPrompt() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         boolean validTimeFormat = false;
@@ -258,7 +261,7 @@ public class ExpenseTrackerApp {
         double limit = user.getExpenseLimitPerMonth();
         double totalExpense = expenseTracker.getTotalExpenseAmount();
         displayLongDivider();
-        System.out.println("User expense limit / amunt details:");
+        System.out.println("User expense limit / amount details:");
         displayLongDivider();
         System.out.println("Your expense limit per month : $" + limit);
         if (user.getOverExpenseLimit(totalExpense)) {

@@ -3,11 +3,12 @@ package model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-// A expense tracker application that allows the user to 
-// - add expense entries
-// - delete expense entries
-// - edit their expense entries
-// - get total expense amount
+// The ExpenseTracker class represents the 
+// the list of expense entries and : 
+// - add expense entries method
+// - delete expense entries method
+// - edit their expense entries method
+// - get total expense amount method
 
 public class ExpenseTracker {
 

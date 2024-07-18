@@ -2,7 +2,7 @@ package model;
 
 import java.time.LocalDate;
 
-// A class representing an expense entry with a name, category, expense amount and note
+// A class representing an expense entry with a name, category, expense amount, note, date and unique id
 public class ExpenseEntry {
 
     private String name;

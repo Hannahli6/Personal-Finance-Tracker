@@ -1,6 +1,6 @@
 package model;
 
-// A class representing a User with a Expense Limit Per Month, total Expense Amount, and a over Expense Limit status
+// A class representing a User with a Expense Limit Per Month,and a over Expense Limit status
 public class User {
 
     private double expenseLimitPerMonth;
