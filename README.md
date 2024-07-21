@@ -21,3 +21,6 @@ This project is of interest to me because I find myself buying a lot of unneeded
 - As a user, I want to arrange my list of expenses based on the date (latest to earliest)
 - As a user, I want to see a visualization / graphs of my spending based on the categories
 - As a user, I want to see a warning indication for overspending after a set limit for the month
+
+- As a user, when I select the quit option or from the save option from the application menu , I want to have an option that asks whether I want to save my expense tracker
+- As a user, when I start the application, I want to be given the *option* to load my expense tracker from file
