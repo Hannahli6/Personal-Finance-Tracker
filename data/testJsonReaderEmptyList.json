@@ -1,0 +1,8 @@
+{
+    "listOfExpenseEntries": [],
+    "user": {
+        "expenseLimit" : 0,
+        "overExpenseLimitStatus" : false
+    },
+    "name": "Personal Expense Tracker"
+}

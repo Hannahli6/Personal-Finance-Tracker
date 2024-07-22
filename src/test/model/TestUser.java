@@ -22,7 +22,7 @@ public class TestUser {
     @Test
     void testUser() {
         //initalize expense limit 
-        assertEquals(0, user1.getExpenseLimitPerMonth());
+        assertEquals(0, user1.getExpenseLimit());
 
         //False expense limit
         assertFalse(user1.getOverExpenseLimit(0));
@@ -30,20 +30,20 @@ public class TestUser {
 
     @Test
     void testGetExpenseLimitPerMonth() {
-        user1.setExpenseLimitPerMonth(350.50);
-        assertEquals(350.50, user1.getExpenseLimitPerMonth());
+        user1.setExpenseLimit(350.50);
+        assertEquals(350.50, user1.getExpenseLimit());
     }
 
     
     @Test
     void testGetOverExpenseLimit() {
-        user1.setExpenseLimitPerMonth(50);
+        user1.setExpenseLimit(50);
         assertTrue(user1.getOverExpenseLimit(500));
     }
     
     @Test
     void testGetOverExpenseLimitCase2() {
-        user1.setExpenseLimitPerMonth(110);
+        user1.setExpenseLimit(110);
         assertFalse(user1.getOverExpenseLimit(10));
         assertFalse(user1.getOverExpenseLimit(10));
         
@@ -52,8 +52,8 @@ public class TestUser {
 
     @Test
     void testSetExpenseLimitPerMonth() {
-        user1.setExpenseLimitPerMonth(450.50);
-        assertEquals(450.50, user1.getExpenseLimitPerMonth());
+        user1.setExpenseLimit(450.50);
+        assertEquals(450.50, user1.getExpenseLimit());
     }
 
 

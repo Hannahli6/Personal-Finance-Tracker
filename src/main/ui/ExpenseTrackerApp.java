@@ -1,6 +1,8 @@
 package ui;
 
 import java.time.format.DateTimeParseException;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -8,21 +10,26 @@ import java.util.Scanner;
 
 import model.ExpenseEntry;
 import model.ExpenseTracker;
-import model.User;
+
+import persistence.JsonReader;
+import persistence.JsonWriter;
+
 
 // CODE ATTRIBUTE: Lab 3
 // A expense tracker console ui application that displays expense tracker information and 
 // allows the user to interact with  in the console for 
 // adding, editing, deleting, viewing their expense entries
 public class ExpenseTrackerApp {
-
-    private User user;
+    
+    private static final String JSON_STORE = "./data/expensetracker.json";
     private ExpenseTracker expenseTracker;
     private Scanner scanner;
     private boolean activeProgram;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     // EFFECTS: creates an instance of the ExpenseTrackerApp console ui application
-    public ExpenseTrackerApp() {
+    public ExpenseTrackerApp() throws FileNotFoundException {
         initializeApp();
         displayLongDivider();
         System.out.println("Welcome to your Personal Expense Tracker app!");
@@ -36,8 +43,9 @@ public class ExpenseTrackerApp {
     }
 
     // EFFECTS: initialize the expense tracker app
-    public void initializeApp() {
-        this.user = new User();
+    public void initializeApp () throws FileNotFoundException {
+        this.jsonWriter = new JsonWriter(JSON_STORE);
+        this.jsonReader = new JsonReader(JSON_STORE);
         this.expenseTracker = new ExpenseTracker();
         this.scanner = new Scanner(System.in);
         this.activeProgram = true;
@@ -66,7 +74,13 @@ public class ExpenseTrackerApp {
                 displayUserExpenseAmountInformation();
                 break;
             case "i":
-                // not implemented yet...
+                handleEditExpenseLimit();
+                break;
+            case "o" :
+                handleSaveExpenseTracker();
+                break;
+            case "p" :
+                handleLoadExpenseTracker();
                 break;
             case "q":
                 exitProgram();
@@ -75,6 +89,27 @@ public class ExpenseTrackerApp {
                 displayLongDivider();
                 System.out.println("Invalid choice! Please choose from the options menu!");
                 displayLongDivider();
+        }
+    }
+
+    private void handleSaveExpenseTracker() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(expenseTracker);
+            jsonWriter.close();
+            System.out.println("SAVED!");
+            System.out.println("Saved expense tracker to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    private void handleLoadExpenseTracker () {
+        try {
+            expenseTracker = jsonReader.read();
+            System.out.println("Loaded expense tracker from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
         }
     }
 
@@ -141,7 +176,7 @@ public class ExpenseTrackerApp {
 
         int id;
         displayLongDivider();
-        System.out.println("Edit Expense Entry");
+        System.out.println("EDIT EXPENSE ENTRY");
         displayLongDivider();
         System.out.println("Please enter the Id of the expense entry that you want to edit!");
         id = this.scanner.nextInt();
@@ -157,7 +192,7 @@ public class ExpenseTrackerApp {
             LocalDate date = (LocalDate) entryInfoList.get(4);
 
             expenseTracker.editExpenseEntry(name, category, expenseAmount, note, date, id);
-            System.out.println("\nYour expense entry id: " + id + "has been edited!");
+            System.out.println("\nYour expense entry id:" + id + " has been edited!");
 
         } else {
             System.out.println("invalid ID! No entries edited!");
@@ -190,7 +225,7 @@ public class ExpenseTrackerApp {
     public void handlePromptDeleteExpenseEntry() {
         int id;
         displayLongDivider();
-        System.out.println("Delete Expense Entry: ");
+        System.out.println("DELETE EXPENSE ENTRY: ");
         displayLongDivider();
         System.out.println("Enter the expense entry id that you want to delete from the list: ");
         id = this.scanner.nextInt();
@@ -205,15 +240,29 @@ public class ExpenseTrackerApp {
 
     // EFFECTS: ask the user to input the expense limit amount
     public void handlePromptExpenseLimit() {
-        System.out.println("Please enter your expense limit per month\n");
+        System.out.println("Please enter your expense limit\n");
         double limit = this.scanner.nextDouble();
         while (limit < 0) {
-            System.out.println("No Negative expense limit! Please enter your expense limit per month\n");
+            System.out.println("No Negative expense limit! Please enter your expense limit\n");
             limit = this.scanner.nextDouble();
         }
         this.scanner.nextLine();
-        user.setExpenseLimitPerMonth(limit);
-        System.out.println("\nYou have set your expense limit per month to: $" + user.getExpenseLimitPerMonth());
+        expenseTracker.getUser().setExpenseLimit(limit);
+        System.out.println("\nYou have set your expense limit to: $" + expenseTracker.getUser().getExpenseLimit());
+    }
+
+    public void handleEditExpenseLimit() {
+        displayLongDivider();
+        System.out.println("EDIT EXPENSE LIMIT");
+        System.out.println("Please enter a new expense limit\n");
+        double limit = this.scanner.nextDouble();
+        while (limit < 0) {
+            System.out.println("No Negative expense limit! Please enter your expense limit\n");
+            limit = this.scanner.nextDouble();
+        }
+        this.scanner.nextLine();
+        expenseTracker.getUser().setExpenseLimit(limit);
+        System.out.println("\nYou have set your new expense limit to: $" + expenseTracker.getUser().getExpenseLimit());
     }
 
     // EFFECTS: ask the user to input the expense category to display the list of
@@ -242,7 +291,7 @@ public class ExpenseTrackerApp {
     // EFFECTS: display all expense entries
     public void displayExpenseEntriesAll() {
         displayLongDivider();
-        System.out.println("View ALL expense entries");
+        System.out.println("VIEW ALL EXPENSE ENTRIES");
         if (!expenseTracker.getListOfExpenseEntries().isEmpty()) {
             for (ExpenseEntry entry : expenseTracker.getListOfExpenseEntries()) {
                 displayExpenseEntry(entry);
@@ -258,13 +307,13 @@ public class ExpenseTrackerApp {
     // EFFECTS: display the user's expense limit amount and total expense amount and
     // overspending warning message
     public void displayUserExpenseAmountInformation() {
-        double limit = user.getExpenseLimitPerMonth();
+        double limit = expenseTracker.getUser().getExpenseLimit();
         double totalExpense = expenseTracker.getTotalExpenseAmount();
         displayLongDivider();
         System.out.println("User expense limit / amount details:");
         displayLongDivider();
         System.out.println("Your expense limit per month : $" + limit);
-        if (user.getOverExpenseLimit(totalExpense)) {
+        if (expenseTracker.getUser().getOverExpenseLimit(totalExpense)) {
             System.out.println("You have reached / reached over your expense limit for the month!");
         }
         System.out.println("You have remaining $ " + (limit - totalExpense) + " to expense!");
@@ -281,6 +330,7 @@ public class ExpenseTrackerApp {
         this.activeProgram = false;
     }
 
+    //EFFECTS: print out a divider using symbols
     public void displayLongDivider() {
         System.out.println("===================================================");
     }
@@ -312,8 +362,10 @@ public class ExpenseTrackerApp {
         System.out.println("t: View all expense entries");
         System.out.println("y: View expense entry from specific category");
         System.out.println("u: View user expense limit/amount details");
-        System.out.println("i: Change expense limit per month");
-        System.out.println("q: quit application");
+        System.out.println("i: Edit expense limit ");
+        System.out.println("o: Save expense tracker to file");
+        System.out.println("p: Load saved expense tracker");
+        System.out.println("q: Quit application");
         displayLongDivider();
     }
 

@@ -2,8 +2,12 @@ package model;
 
 import java.time.LocalDate;
 
+import org.json.JSONObject;
+
+import persistence.Writable;
+
 // A class representing an expense entry with a name, category, expense amount, note, date and unique id
-public class ExpenseEntry {
+public class ExpenseEntry implements Writable{
 
     private String name;
     private String category;
@@ -22,6 +26,18 @@ public class ExpenseEntry {
         this.note = note;
         this.date = date;
         this.id = 0;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("category", category);
+        json.put("expenseAmount", expenseAmount);
+        json.put("note", note);
+        json.put("date", date);
+        json.put("id", id);
+        return json;
     }
 
     // getters

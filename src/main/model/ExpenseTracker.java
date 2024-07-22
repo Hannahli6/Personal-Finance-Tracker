@@ -3,6 +3,12 @@ package model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import persistence.Writable;
+
+
 // The ExpenseTracker class represents the 
 // the list of expense entries and : 
 // - add expense entries method
@@ -10,17 +16,40 @@ import java.util.ArrayList;
 // - edit their expense entries method
 // - get total expense amount method
 
-public class ExpenseTracker {
+public class ExpenseTracker implements Writable {
 
     private ArrayList<ExpenseEntry> listOfExpenseEntries;
     private int largestIdNum;
+    private User user;
 
     // EFFECTS: creates an instance of the ExpenseTrackerApp console ui application
     public ExpenseTracker() {
         // initalize empty list of entries
+        user = new User();
         listOfExpenseEntries = new ArrayList<>();
         largestIdNum = 0;
     }
+
+    // EFFECTS: write the implemtation for the public interface method to return one Json object of 
+    //          the user info json object, the name of this expense tracker and a json array of list of expense entries
+    // Note: we override here because Expense Entry class & User also implements the Writable class!
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("listOfExpenseEntries", listOfExpenseEntriesToJson());
+        json.put("user", user.toJson());
+        return json;
+    }
+
+     // EFFECTS: returns every expense entry as a json object and placed into a new json array
+    private JSONArray listOfExpenseEntriesToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (ExpenseEntry entry : listOfExpenseEntries) {
+            jsonArray.put(entry.toJson());
+        }
+        return jsonArray;
+    }
+
 
     // MODIFIES: this
     // EFFECTS: adds a new Expense Entry to the list of expense entries
@@ -79,6 +108,10 @@ public class ExpenseTracker {
             total += entry.getExpenseAmount();
         }
         return total;
+    }
+
+    public User getUser() {
+        return user;
     }
 
 }
