@@ -51,10 +51,11 @@ public class TestUser {
     }
 
     @Test
-    void testSetExpenseLimitPerMonth() {
+    void testSetExpenseLimit() {
         user1.setExpenseLimit(450.50);
         assertEquals(450.50, user1.getExpenseLimit());
     }
+
 
 
 }

@@ -42,7 +42,7 @@ public class ExpenseTracker implements Writable {
     }
 
      // EFFECTS: returns every expense entry as a json object and placed into a new json array
-    private JSONArray listOfExpenseEntriesToJson() {
+    public JSONArray listOfExpenseEntriesToJson() {
         JSONArray jsonArray = new JSONArray();
         for (ExpenseEntry entry : listOfExpenseEntries) {
             jsonArray.put(entry.toJson());

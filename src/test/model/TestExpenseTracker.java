@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -143,4 +145,31 @@ public class TestExpenseTracker {
         myExpenseTracker.addExpenseEntry(entry1);
         assertEquals((100+18.50), myExpenseTracker.getTotalExpenseAmount());
     }
+
+    @Test
+    void testListOfExpenseEntriesToJson() {
+       
+        myExpenseTracker.addExpenseEntry(entry0);
+        myExpenseTracker.addExpenseEntry(entry1);
+
+        JSONArray jsonArray = myExpenseTracker.listOfExpenseEntriesToJson();
+        JSONObject entry0JsonObject = jsonArray.getJSONObject(0);
+        JSONObject entry1JsonObject = jsonArray.getJSONObject(1);
+
+        assertEquals("ramen", entry0JsonObject.getString("name"));
+        assertEquals("Food", entry0JsonObject.getString("category"));
+        assertEquals(18.50, entry0JsonObject.getDouble("expenseAmount"));
+        assertEquals("my friend's birthday dinner",entry0JsonObject.getString("note"));
+        assertEquals(LocalDate.of(2024, 7, 15), entry0JsonObject.get("date"));
+        assertEquals(0, entry0JsonObject.getInt("id"));
+        
+        assertEquals("compass card", entry1JsonObject.getString("name"));
+        assertEquals("Transportation", entry1JsonObject.getString("category"));
+        assertEquals(100, entry1JsonObject.getDouble("expenseAmount"));
+        assertEquals("monthly compass card",entry1JsonObject.getString("note"));
+        assertEquals(LocalDate.of(2024, 7, 15), entry1JsonObject.get("date"));
+        assertEquals(1, entry1JsonObject.getInt("id"));
+        
+    }
+
 }

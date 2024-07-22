@@ -1,25 +1,24 @@
 {
     "listOfExpenseEntries": [
         {
-            "name" : "Sushi" ,
-            "category" : "Food",
-            "expenseAmount" : 25,
-            "date" : "2024-10-10",
-            "note" : "dinner",
-            "id" : 0
+            "date": "2024-10-10",
+            "note": "dinner",
+            "expenseAmount": 25,
+            "name": "Sushi",
+            "id": 0,
+            "category": "Food"
         },
         {
-            "name" : "Bus" ,
-            "category" : "Transportation",
-            "expenseAmount" : 100,
-            "date" : "2024-07-10",
-            "note" : "upass",
-            "id" : 1
+            "date": "2024-07-10",
+            "note": "upass",
+            "expenseAmount": 100,
+            "name": "Bus",
+            "id": 0,
+            "category": "Transportation"
         }
     ],
     "user": {
-        "expenseLimit" : 50,
-        "overExpenseLimitStatus" : true
-    },
-    "name": "Personal Expense Tracker"
+        "expenseLimit": 100,
+        "overExpenseLimit": false
+    }
 }

@@ -3,7 +3,9 @@ package model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,6 +21,7 @@ public class TestExpenseEntry {
                 18.50,
                 "my friend's birthday dinner",
                 LocalDate.of(2024, 7, 15));
+                
     }
 
     @Test
@@ -48,7 +51,7 @@ public class TestExpenseEntry {
         assertEquals("her birthday party!", myEntry.getNote());
 
         myEntry.setDate(tempDate);
-        assertEquals(LocalDate.of(2024, 7, 19), myEntry.getDate());
+        assertEquals(tempDate, myEntry.getDate());
         
         myEntry.setId(1);
         assertEquals(1,myEntry.getId());
@@ -62,6 +65,18 @@ public class TestExpenseEntry {
         assertEquals("my friend's birthday dinner", myEntry.getNote());
         assertEquals(LocalDate.of(2024, 7, 15), myEntry.getDate());
 
+    }
+
+    @Test
+    void testExpenseEntryToJson() {
+
+        assertEquals("ramen", myEntry.toJson().getString("name"));
+        assertEquals("Food", myEntry.toJson().getString("category"));
+        assertEquals(18.50, myEntry.toJson().getDouble("expenseAmount"));
+        assertEquals("my friend's birthday dinner", myEntry.toJson().getString("note"));
+        assertEquals(LocalDate.of(2024, 7, 15), myEntry.toJson().get("date"));
+        assertEquals(0, myEntry.toJson().getInt("id"));
+        
     }
 
 }
