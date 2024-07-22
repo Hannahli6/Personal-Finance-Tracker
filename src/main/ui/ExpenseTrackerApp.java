@@ -11,7 +11,7 @@ import java.util.Scanner;
 import model.ExpenseEntry;
 import model.ExpenseTracker;
 
-import persistence.JsonReader;
+import persistence.JsonViewer;
 import persistence.JsonWriter;
 
 
@@ -26,7 +26,7 @@ public class ExpenseTrackerApp {
     private Scanner scanner;
     private boolean activeProgram;
     private JsonWriter jsonWriter;
-    private JsonReader jsonReader;
+    private JsonViewer jsonReader;
 
     // EFFECTS: creates an instance of the ExpenseTrackerApp console ui application
     public ExpenseTrackerApp() throws FileNotFoundException {
@@ -43,9 +43,9 @@ public class ExpenseTrackerApp {
     }
 
     // EFFECTS: initialize the expense tracker app
-    public void initializeApp () throws FileNotFoundException {
+    public void initializeApp() throws FileNotFoundException {
         this.jsonWriter = new JsonWriter(JSON_STORE);
-        this.jsonReader = new JsonReader(JSON_STORE);
+        this.jsonReader = new JsonViewer(JSON_STORE);
         this.expenseTracker = new ExpenseTracker();
         this.scanner = new Scanner(System.in);
         this.activeProgram = true;
@@ -104,7 +104,7 @@ public class ExpenseTrackerApp {
         }
     }
 
-    private void handleLoadExpenseTracker () {
+    private void handleLoadExpenseTracker() {
         try {
             expenseTracker = jsonReader.read();
             System.out.println("Loaded expense tracker from " + JSON_STORE);

@@ -7,16 +7,10 @@ import model.ExpenseTracker;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class JsonWriterTest extends JsonTest {
-    // NOTE TO CPSC 210 STUDENTS: the strategy in designing tests for the JsonWriter
-    // is to
-    // write data to a file and then use the reader to read it back in and check
-    // that we
-    // read in a copy of what was written out.
 
     @Test
     void testJsonWriterInvalidFile() {
@@ -25,7 +19,7 @@ class JsonWriterTest extends JsonTest {
             writer.open();
             fail("IOException was expected");
         } catch (IOException e) {
-
+            // pass
         }
     }
 
@@ -38,7 +32,7 @@ class JsonWriterTest extends JsonTest {
             writer.write(expenseTracker);
             writer.close();
 
-            JsonReader reader = new JsonReader("./data/testJsonWriterEmptyList.json");
+            JsonViewer reader = new JsonViewer("./data/testJsonWriterEmptyList.json");
             expenseTracker = reader.read();
             assertEquals(0, expenseTracker.getTotalExpenseAmount());
             assertEquals(0, expenseTracker.getUser().getExpenseLimit());
@@ -51,7 +45,6 @@ class JsonWriterTest extends JsonTest {
 
     @Test
     void testJsonWriterWithEntries() {
-
         try {
             ExpenseTracker expenseTracker = new ExpenseTracker();
             // sample entries from test json file
@@ -82,12 +75,14 @@ class JsonWriterTest extends JsonTest {
             writer.write(expenseTracker);
             writer.close();
 
-            //read & check
-            JsonReader reader = new JsonReader("./data/testJsonWriterWithEntries.json");
+            // read & check
+            JsonViewer reader = new JsonViewer("./data/testJsonWriterWithEntries.json");
             expenseTracker = reader.read();
-            checkExpenseEntry(entry0, entry0.getName(), entry0.getCategory(),entry0.getExpenseAmount(), entry0.getNote(), entry0.getDate(), entry0.getId());
-            checkExpenseEntry(entry1, entry1.getName(), entry1.getCategory(),entry1.getExpenseAmount(), entry1.getNote(), entry1.getDate(), entry1.getId());
-        
+            checkExpenseEntry(entry0, entry0.getName(), entry0.getCategory(),
+                    entry0.getExpenseAmount(), entry0.getNote(), entry0.getDate(), entry0.getId());
+            checkExpenseEntry(entry1, entry1.getName(), entry1.getCategory(),
+                    entry1.getExpenseAmount(), entry1.getNote(), entry1.getDate(), entry1.getId());
+
         } catch (IOException e) {
             fail("Exception should not have been thrown");
         }

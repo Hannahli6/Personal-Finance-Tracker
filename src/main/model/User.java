@@ -5,7 +5,7 @@ import org.json.JSONObject;
 import persistence.Writable;
 
 // A class representing a User with a Expense Limit Per Month,and a over Expense Limit status
-public class User implements Writable{
+public class User implements Writable {
 
     private double expenseLimit;
     private boolean overExpenseLimit;
@@ -17,8 +17,9 @@ public class User implements Writable{
         this.overExpenseLimit = false;
     }
 
-    // EFFECTS: write the implemtation for the public interface method to make the fields in this class a 
-    //          JSON object
+    // EFFECTS: write the implemtation for the public interface method to make the
+    // fields in this class a
+    // JSON object
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -48,7 +49,7 @@ public class User implements Writable{
     // MODFIES: this
     // EFFECTS: sets the user's over expense limit status to the new given status
     public void setOverExpenseLimit(boolean overExpenseLimitStatus) {
-       this.overExpenseLimit = overExpenseLimitStatus;
+        this.overExpenseLimit = overExpenseLimitStatus;
     }
 
 }

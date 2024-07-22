@@ -7,7 +7,7 @@ import org.json.JSONObject;
 import persistence.Writable;
 
 // A class representing an expense entry with a name, category, expense amount, note, date and unique id
-public class ExpenseEntry implements Writable{
+public class ExpenseEntry implements Writable {
 
     private String name;
     private String category;

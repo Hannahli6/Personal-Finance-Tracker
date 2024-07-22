@@ -1,6 +1,5 @@
 package persistence;
 
-
 import org.junit.jupiter.api.Test;
 
 import model.ExpenseEntry;
@@ -9,17 +8,16 @@ import model.ExpenseTracker;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
 import static org.junit.jupiter.api.Assertions.*;
 
-public class JsonReaderTest extends JsonTest{
-    
+public class JsonReaderTest extends JsonTest {
+
     @Test
     void testJsonReaderNonExistentFile() {
-        JsonReader reader = new JsonReader("./data/noSuchFile.json");
+        JsonViewer reader = new JsonViewer("./data/noSuchFile.json");
         try {
             ExpenseTracker expenseTracker = reader.read();
-            fail("IOException expected");
+            fail("IOException expected" );
         } catch (IOException e) {
             // pass
         }
@@ -27,7 +25,7 @@ public class JsonReaderTest extends JsonTest{
 
     @Test
     void testJsonReaderEmptyExpenseTracker() {
-        JsonReader reader = new JsonReader("./data/testJsonReaderEmptyList.json");
+        JsonViewer reader = new JsonViewer("./data/testJsonReaderEmptyList.json");
         try {
             ExpenseTracker expenseTracker = reader.read();
             assertEquals(0, expenseTracker.getTotalExpenseAmount());
@@ -41,7 +39,7 @@ public class JsonReaderTest extends JsonTest{
 
     @Test
     void testJsonReaderWithEntries() {
-        JsonReader reader = new JsonReader("./data/testJsonReaderWithEntries.json");
+        JsonViewer reader = new JsonViewer("./data/testJsonReaderWithEntries.json");
         try {
             ExpenseTracker expenseTracker = reader.read();
             ArrayList<ExpenseEntry> listOfExpenseEntries = expenseTracker.getListOfExpenseEntries();
@@ -53,13 +51,15 @@ public class JsonReaderTest extends JsonTest{
             assertEquals(true, expenseTracker.getUser().getOverExpenseLimit(getTotalExpenseAmount));
             assertEquals(2, listOfExpenseEntries.size());
 
-            checkExpenseEntry(entry0, entry0.getName(), entry0.getCategory(),entry0.getExpenseAmount(), entry0.getNote(), entry0.getDate(), entry0.getId());
-            checkExpenseEntry(entry1, entry1.getName(), entry1.getCategory(),entry1.getExpenseAmount(), entry1.getNote(), entry1.getDate(), entry1.getId());
+            checkExpenseEntry(entry0, entry0.getName(), entry0.getCategory(),
+                    entry0.getExpenseAmount(), entry0.getNote(), entry0.getDate(), entry0.getId());
+            checkExpenseEntry(entry1, entry1.getName(), entry1.getCategory(),
+                    entry1.getExpenseAmount(), entry1.getNote(), entry1.getDate(), entry1.getId());
 
         } catch (IOException e) {
             fail("Couldn't read from file");
         }
-        
+
     }
 
 }

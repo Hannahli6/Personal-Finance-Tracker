@@ -15,11 +15,11 @@ import model.ExpenseEntry;
 import model.ExpenseTracker;
 
 // Represents a reader that reads workroom from JSON data stored in file
-public class JsonReader {
+public class JsonViewer {
     private String source;
 
     // EFFECTS: constructs reader to read from source file
-    public JsonReader(String source) {
+    public JsonViewer(String source) {
         this.source = source;
     }
 
