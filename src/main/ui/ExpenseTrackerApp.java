@@ -91,7 +91,7 @@ public class ExpenseTrackerApp {
                 displayLongDivider();
         }
     }
-
+    //EFFECTS: saving the expense tracker to json file
     private void handleSaveExpenseTracker() {
         try {
             jsonWriter.open();
@@ -103,7 +103,7 @@ public class ExpenseTrackerApp {
             System.out.println("Unable to write to file: " + JSON_STORE);
         }
     }
-
+    //EFFECTS: loading the expense tracker from json file
     private void handleLoadExpenseTracker() {
         try {
             expenseTracker = jsonReader.read();
@@ -251,6 +251,7 @@ public class ExpenseTrackerApp {
         System.out.println("\nYou have set your expense limit to: $" + expenseTracker.getUser().getExpenseLimit());
     }
 
+    //EFFECTS: prompt the user to edit their expense limit amount
     public void handleEditExpenseLimit() {
         displayLongDivider();
         System.out.println("EDIT EXPENSE LIMIT");

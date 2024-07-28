@@ -1,24 +1,24 @@
 {
     "listOfExpenseEntries": [
         {
-            "date": "2024-07-15",
-            "note": "upass",
+            "date": "2024-01-01",
+            "note": "dinner",
             "expenseAmount": 100,
-            "name": "Bus",
+            "name": "Sushi",
             "id": 0,
-            "category": "Transportation"
+            "category": "Food"
         },
         {
-            "date": "2024-01-01",
-            "note": "big dinnner",
-            "expenseAmount": 400,
+            "date": "2024-01-02",
+            "note": "lunch",
+            "expenseAmount": 10,
             "name": "Ramen",
             "id": 1,
             "category": "Food"
         }
     ],
     "user": {
-        "expenseLimit": 1000,
+        "expenseLimit": 300,
         "overExpenseLimit": false
     }
 }

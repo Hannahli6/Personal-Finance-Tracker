@@ -79,6 +79,8 @@ public class JsonViewer {
         expenseTracker.addExpenseEntry(entry);
     }
 
+    //MODIFES: Expense tracker
+    //EFFECTS: parses user info from its JSON object adds it to expense tracker
     private void parseUserInfo(ExpenseTracker expenseTracker, JSONObject jsonObject) {
         JSONObject jsonUserObject = jsonObject.getJSONObject("user");
         boolean overExpenseLimit = jsonUserObject.getBoolean("overExpenseLimit");
