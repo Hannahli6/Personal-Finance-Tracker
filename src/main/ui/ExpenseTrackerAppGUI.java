@@ -1,6 +1,8 @@
 package ui;
 
 import javax.swing.*;
+import javax.swing.RowFilter.Entry;
+import javax.swing.table.DefaultTableModel;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -21,11 +23,11 @@ public class ExpenseTrackerAppGUI {
     JFrame frame;
     JPanel addEntryField = new JPanel();
 
-    JTextField nameTextField = new JTextField("");
-    JTextField categoryTextField = new JTextField("");
-    JTextField amountTextField = new JTextField("");
-    JTextField noteTextField = new JTextField("");
-    JTextField dateTextField = new JTextField("");
+    JTextField nameTextField = new JTextField(10);
+    JTextField categoryTextField = new JTextField(10);
+    JTextField amountTextField = new JTextField(10);
+    JTextField noteTextField = new JTextField(10);
+    JTextField dateTextField = new JTextField(10);
 
     ExpenseTracker expenseTracker = new ExpenseTracker();
 
@@ -35,12 +37,10 @@ public class ExpenseTrackerAppGUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(750, 750);
 
-        // Create a label
-        nameLabel = new JLabel("name");
-        nameLabel.setHorizontalAlignment(SwingConstants.LEFT);
-
-        amountLabel = new JLabel("Amount");
-        amountLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        DefaultTableModel tableModel = new DefaultTableModel(new Object[]{"Name", "Category", "Amount", "note", "Date"}, 0);
+        JTable expenseTable = new JTable(tableModel);
+        expenseTable.setFillsViewportHeight(true);
+        JScrollPane scrollPaneExpenseTable = new JScrollPane(expenseTable);
 
         // Create a button
         JButton addEntryButton = new JButton("button");
@@ -52,6 +52,7 @@ public class ExpenseTrackerAppGUI {
         // EFFECTS: on click button to add each of those entry details to an expense entry
         //          if date is invalid, throw date exception
         //          if expense Amount is invalid, throw expense amount invalid exception
+        //          if expense amount is negative, throw negative amount exception
         addEntryButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -62,6 +63,9 @@ public class ExpenseTrackerAppGUI {
                     LocalDate date = getDateFromTextField();
                     ExpenseEntry newEntry = new ExpenseEntry(name, category, expenseAmount, note, date);
                     expenseTracker.addExpenseEntry(newEntry);
+     
+                    tableModel.addRow(new Object[]{name, category, expenseAmount, note, date});
+                    clearTextField();
                 } catch (DateTimeParseException msg) {
                     JOptionPane.showMessageDialog(frame, "Invalid date format. Please enter date in yyyy-MM-dd format.",
                             "Error", JOptionPane.ERROR_MESSAGE);
@@ -87,6 +91,8 @@ public class ExpenseTrackerAppGUI {
         addEntryField.setLayout(new GridLayout(3, 2));
         addEntryField.setSize(100,1000);    
         addEntryField.add(addEntryButton);
+        addEntryField.add(scrollPaneExpenseTable, BorderLayout.CENTER);
+
 
         // Add the panel to the frame
         frame.add(addEntryField);
@@ -114,6 +120,14 @@ public class ExpenseTrackerAppGUI {
         } catch (NumberFormatException msg) {
             throw new NumberFormatException();
         }
+    }
+
+    public void clearTextField() {
+        nameTextField.setText("");
+        categoryTextField.setText("");
+        dateTextField.setText("");
+        amountTextField.setText("");
+        noteTextField.setText("");
     }
 
     public void createEntryField() {
