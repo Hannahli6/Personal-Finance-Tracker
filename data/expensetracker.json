@@ -1,24 +1,32 @@
 {
     "listOfExpenseEntries": [
         {
-            "date": "2024-01-01",
-            "note": "dinner",
-            "expenseAmount": 100,
-            "name": "Sushi",
+            "date": "2024-08-01",
+            "note": "Dinner",
+            "expenseAmount": 30,
+            "name": "Ramen",
             "id": 0,
             "category": "Food"
         },
         {
-            "date": "2024-01-02",
-            "note": "lunch",
-            "expenseAmount": 10,
-            "name": "Ramen",
+            "date": "2024-08-01",
+            "note": "Upass for the semester",
+            "expenseAmount": 180,
+            "name": "Upass",
             "id": 1,
-            "category": "Food"
+            "category": "Transportation"
+        },
+        {
+            "date": "2024-07-24",
+            "note": "car insurance for 2024",
+            "expenseAmount": 2000,
+            "name": "Car insurance",
+            "id": 2,
+            "category": "Transportation"
         }
     ],
     "user": {
-        "expenseLimit": 300,
-        "overExpenseLimit": false
+        "expenseLimit": 200,
+        "overExpenseLimit": true
     }
 }
