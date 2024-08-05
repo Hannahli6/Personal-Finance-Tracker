@@ -14,13 +14,12 @@ import model.ExpenseTracker;
 import persistence.JsonViewer;
 import persistence.JsonWriter;
 
-
 // CODE ATTRIBUTE: Lab 3
 // A expense tracker console ui application that displays expense tracker information and 
 // allows the user to interact with  in the console for 
 // adding, editing, deleting, viewing their expense entries
 public class ExpenseTrackerApp {
-    
+
     private static final String JSON_STORE = "./data/expensetracker.json";
     private ExpenseTracker expenseTracker;
     private Scanner scanner;
@@ -34,7 +33,7 @@ public class ExpenseTrackerApp {
         displayLongDivider();
         System.out.println("Welcome to your Personal Expense Tracker app!");
         displayLongDivider();
-        handlePromptExpenseLimit(); //get expense limit
+        handlePromptExpenseLimit(); // get expense limit
         while (this.activeProgram) {
             displayMainMenu();
             String userInput = this.scanner.nextLine();
@@ -76,10 +75,10 @@ public class ExpenseTrackerApp {
             case "i":
                 handleEditExpenseLimit();
                 break;
-            case "o" :
+            case "o":
                 handleSaveExpenseTracker();
                 break;
-            case "p" :
+            case "p":
                 handleLoadExpenseTracker();
                 break;
             case "q":
@@ -91,7 +90,8 @@ public class ExpenseTrackerApp {
                 displayLongDivider();
         }
     }
-    //EFFECTS: saving the expense tracker to json file
+
+    // EFFECTS: saving the expense tracker to json file
     private void handleSaveExpenseTracker() {
         try {
             jsonWriter.open();
@@ -103,7 +103,8 @@ public class ExpenseTrackerApp {
             System.out.println("Unable to write to file: " + JSON_STORE);
         }
     }
-    //EFFECTS: loading the expense tracker from json file
+
+    // EFFECTS: loading the expense tracker from json file
     private void handleLoadExpenseTracker() {
         try {
             expenseTracker = jsonReader.read();
@@ -171,7 +172,7 @@ public class ExpenseTrackerApp {
     }
 
     // EFFECTS: get a new list of expense entry details that the user as edited and
-    //          replacing each of those details to a corresponding expense entry
+    // replacing each of those details to a corresponding expense entry
     public void handlePromptEditExpenseEntry() {
 
         int id;
@@ -200,8 +201,8 @@ public class ExpenseTrackerApp {
     }
 
     // EFFECTS: ask user to input yyy-mm-dd format for the date,
-    //          if its a valid date, return date
-    //          otherwise ask the user again to input another date until it's valid
+    // if its a valid date, return date
+    // otherwise ask the user again to input another date until it's valid
     public LocalDate getDateFromPrompt() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         boolean validTimeFormat = false;
@@ -251,7 +252,7 @@ public class ExpenseTrackerApp {
         System.out.println("\nYou have set your expense limit to: $" + expenseTracker.getUser().getExpenseLimit());
     }
 
-    //EFFECTS: prompt the user to edit their expense limit amount
+    // EFFECTS: prompt the user to edit their expense limit amount
     public void handleEditExpenseLimit() {
         displayLongDivider();
         System.out.println("EDIT EXPENSE LIMIT");
@@ -331,7 +332,7 @@ public class ExpenseTrackerApp {
         this.activeProgram = false;
     }
 
-    //EFFECTS: print out a divider using symbols
+    // EFFECTS: print out a divider using symbols
     public void displayLongDivider() {
         System.out.println("===================================================");
     }
