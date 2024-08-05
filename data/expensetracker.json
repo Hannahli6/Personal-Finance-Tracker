@@ -23,6 +23,30 @@
             "name": "Car insurance",
             "id": 2,
             "category": "Transportation"
+        },
+        {
+            "date": "2024-08-01",
+            "note": "school",
+            "expenseAmount": 500,
+            "name": "Tuition",
+            "id": 3,
+            "category": "Education"
+        },
+        {
+            "date": "2024-07-25",
+            "note": "",
+            "expenseAmount": 60.5,
+            "name": "Pickball paddle",
+            "id": 4,
+            "category": "Sport"
+        },
+        {
+            "date": "2024-08-02",
+            "note": "movie",
+            "expenseAmount": 20,
+            "name": "Deadpool2",
+            "id": 5,
+            "category": "Entertainment"
         }
     ],
     "user": {
