@@ -1,6 +1,7 @@
 package model;
 
 public enum Categories {
+    All,
     Transportation,
     Bills,
     Food,

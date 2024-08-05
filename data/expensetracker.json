@@ -47,6 +47,14 @@
             "name": "Deadpool2",
             "id": 5,
             "category": "Entertainment"
+        },
+        {
+            "date": "2024-06-05",
+            "note": "steam game",
+            "expenseAmount": 20.5,
+            "name": "Video Game purchase",
+            "id": 6,
+            "category": "Entertainment"
         }
     ],
     "user": {
