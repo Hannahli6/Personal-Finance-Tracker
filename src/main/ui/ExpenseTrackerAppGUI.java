@@ -90,7 +90,7 @@ public class ExpenseTrackerAppGUI {
         // =========================================
         // EVENT LISTENER
 
-        //EFFECTS: event listener for displaying the graph on button click
+        // EFFECTS: event listener for displaying the graph on button click
         generateGraphButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -102,7 +102,7 @@ public class ExpenseTrackerAppGUI {
             }
         });
 
-        //EFFECTS: event listener for editing expense limit amount on button click
+        // EFFECTS: event listener for editing expense limit amount on button click
         editExpenseLimitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -161,7 +161,8 @@ public class ExpenseTrackerAppGUI {
             }
         });
 
-        // EFFECTS: action listener to load expense tracker from JSON file on button click
+        // EFFECTS: action listener to load expense tracker from JSON file on button
+        // click
         loadButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -213,7 +214,7 @@ public class ExpenseTrackerAppGUI {
         entryFieldJPanel.setLayout(new GridLayout(5, 2, 10, 10));
         createEntryField();
 
-        //BUTTONS LAYOUT
+        // BUTTONS LAYOUT
         buttonJPanel.add(addEntryButton);
         buttonJPanel.add(loadButton);
         buttonJPanel.add(saveButton);
@@ -221,26 +222,26 @@ public class ExpenseTrackerAppGUI {
         buttonJPanel.add(editExpenseLimitButton);
         buttonJPanel.add(generateGraphButton);
 
-        //STATUS MESSAGE LAYOUT
+        // STATUS MESSAGE LAYOUT
         statusMessageJPanel.setLayout(new BorderLayout());
         statusMessageJPanel.add(expenseLimitJLabel, BorderLayout.NORTH);
         statusMessageJPanel.add(totalExpenseJLabel, BorderLayout.CENTER);
         statusMessageJPanel.add(expenseStatusJLabel, BorderLayout.SOUTH);
 
-        //TABLE PANEL LAYOUT
+        // TABLE PANEL LAYOUT
         tableJPanel.setLayout(new BorderLayout());
         tableJPanel.add(scrollPaneExpenseTable, BorderLayout.NORTH);
         tableJPanel.add(statusMessageJPanel, BorderLayout.SOUTH);
 
-        //ADD ALL PANELS TO FRAME
+        // ADD ALL PANELS TO FRAME
         frameWrapper.setLayout(new BorderLayout());
         frameWrapper.setBorder(BorderFactory.createEmptyBorder(10, 20, 20, 20));
         frameWrapper.add(buttonJPanel, BorderLayout.NORTH);
         frameWrapper.add(tableJPanel, BorderLayout.CENTER);
         frameWrapper.add(entryFieldJPanel, BorderLayout.SOUTH);
 
-        //add framewrapper to frame
-        //framewrapper has padding 
+        // add framewrapper to frame
+        // framewrapper has padding
         frame.add(frameWrapper);
 
         // Make the frame visible
@@ -266,15 +267,11 @@ public class ExpenseTrackerAppGUI {
             String categoryKey = entry.getCategory();
             double expenseAmount = entry.getExpenseAmount();
             if (!categorySpendings.containsKey(categoryKey)) {
-                System.out.println(entry.getCategory() + entry.getExpenseAmount());
                 categorySpendings.put(categoryKey, expenseAmount);
             } else {
-                System.out.println(entry.getCategory() + entry.getExpenseAmount());
                 categorySpendings.put(categoryKey, categorySpendings.get(categoryKey) + expenseAmount);
             }
         }
-
-        System.out.println(categorySpendings);
         ArrayList<Double> values = new ArrayList<>(categorySpendings.values());
         ArrayList<String> categoriesLabels = new ArrayList<>(categorySpendings.keySet());
         Color[] colors = { PINK_COLOR, ORANGE_COLOR, YELLOW_COLOR, BLUE_COLOR, PURPLE_COLOR };
