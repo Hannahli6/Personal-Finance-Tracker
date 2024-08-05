@@ -30,6 +30,6 @@ This project is of interest to me because I find myself buying a lot of unneeded
 - You can generate the first required action related to the user story "adding multiple expense entries to a list" by filling in the entry details in the entry text fields at the bottom section of the application and pressing the 'add' button at the top section.
 - You can generate the second required action related to the user story "adding multiple expense entries to a list" by deleting an entry when pressing the delete button and entering the ID of the entry you want to delete
 - You can filter the list of expense entries based on categories by selecting the category in the dropdown menu at the top section
-- You can locate my visual component by generating a bar graph of the user's expense amount categorized under the corresponding categories
+- You can locate my visual component by generating a bar graph of the user's expense amount categorized under the corresponding categories in the dropdown menu at the top section
 - You can save the state of my application by pressing the save button at the top section
 - You can reload the state of my application by pressing the load button at the top section
