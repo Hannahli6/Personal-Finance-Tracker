@@ -44,6 +44,7 @@ public class User implements Writable {
     // EFFECTS: sets the user's expense limit to the new given limit
     public void setExpenseLimit(double limit) {
         this.expenseLimit = limit;
+        EventLog.getInstance().logEvent(new Event("Set expense limit" + limit));
     }
 
     // MODFIES: this

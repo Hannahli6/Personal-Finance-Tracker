@@ -92,6 +92,8 @@ public class ExpenseTrackerAppGUI {
         handleSaveToFile();
         handleLoadFromFile();
         handleAddEntry();
+        handleLogEventsOnCloseWindow();
+
 
         // =======================================
         // PANELS & LAYOUTS
@@ -111,10 +113,13 @@ public class ExpenseTrackerAppGUI {
 
     }
 
+    
+
     // EFFECTS: create the jframe with size and title
     private void createJFrame() {
         frame = new JFrame("Expense Tracker");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(750, 750);
     }
 
@@ -192,6 +197,18 @@ public class ExpenseTrackerAppGUI {
                 } catch (NegativeAmountException msg) {
                     JOptionPane.showMessageDialog(frame, "Cannot enter negative expense amount", "Error",
                             JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+    }
+
+    //EFFECTS: action listener to print event log into console after closing the application
+    private void handleLogEventsOnCloseWindow() {
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                for (model.Event next : EventLog.getInstance()) {
+                    System.out.println(next);
                 }
             }
         });

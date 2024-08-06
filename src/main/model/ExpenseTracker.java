@@ -60,6 +60,7 @@ public class ExpenseTracker implements Writable {
         uniqueId = largestIdNum;
         largestIdNum++;
         newEntry.setId(uniqueId);
+        EventLog.getInstance().logEvent(new Event("Added a new expense entry" + "ID: " + uniqueId));
     }
 
     // REQUIRES: at least one expense entry & id given is valid
@@ -74,6 +75,7 @@ public class ExpenseTracker implements Writable {
         toBeEditedExpenseEntry.setExpenseAmount(amount);
         toBeEditedExpenseEntry.setDate(date);
         toBeEditedExpenseEntry.setNote(note);
+        EventLog.getInstance().logEvent(new Event("Edit Expense Entry"));
     }
 
     // REQUIRES: id to be valid
@@ -83,6 +85,7 @@ public class ExpenseTracker implements Writable {
         // finds an expense entry with the same given id from the list of entries
         // remove from list
         listOfExpenseEntries.remove(findExpenseEntry(id));
+        EventLog.getInstance().logEvent(new Event("Deleted Expense Entry" + "ID: " + id));
     }
 
     // EFFECTS: get the list of expense entries
