@@ -16,7 +16,7 @@ public class TestExpenseTracker {
     private ExpenseEntry entry1;
     private ExpenseEntry entry2;
     private ExpenseTracker myExpenseTracker;
-    private
+    
 
     @BeforeEach
     void runBefore() {
