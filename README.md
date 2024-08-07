@@ -33,3 +33,12 @@ This project is of interest to me because I find myself buying a lot of unneeded
 - You can locate my visual component by generating a bar graph of the user's expense amount categorized under the corresponding categories in the dropdown menu at the top section
 - You can save the state of my application by pressing the save button at the top section
 - You can reload the state of my application by pressing the load button at the top section
+
+## **Phase 4: Task 2**
+- Added a new expense entryID: 0
+- Added a new expense entryID: 1
+- Set expense limit200.0
+- Deleted Expense EntryID: 0
+- Added a new expense entryID: 2
+- Set expense limit500.0
+
