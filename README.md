@@ -42,3 +42,6 @@ This project is of interest to me because I find myself buying a lot of unneeded
 - Added a new expense entryID: 2
 - Set expense limit500.0
 
+## **Phase 4: Task 3**
+Looking at the UML diagram, I would have Categories Enum be associated with the ExpenseEntry class instead of having a dependency relationship with the ExpenseTrackerAppGUI.  This way the ExpenseEntry class can directly manages its category, making it easier to maintain and extend category-related features in the future. I would also like to change the association relationship with the User and ExpenseTracker to a bidirectional relationship. So that it makes more sense for a User to have an Expense Tracker and for an Expense Tracker to be aware of its associated User! If I had more time, I think it would best to separate and extract some UI componenets into its own classes oppose to having all of them under one class. For example, extracting the Jtable that displays the list of entries, and extracting the entry fields component. If an edit feature is implmeneted in the future, I could reduce code duplication by reusing the extracted entry fields component with minimal changes! This way we can improve code readability, better cohesiveness and reduce coupling.
+
