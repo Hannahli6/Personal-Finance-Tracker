@@ -17,7 +17,7 @@ public class JsonReaderTest extends JsonTest {
         JsonViewer reader = new JsonViewer("./data/noSuchFile.json");
         try {
             ExpenseTracker expenseTracker = reader.read();
-            fail("IOException expected" );
+            fail("IOException expected");
         } catch (IOException e) {
             // pass
         }

@@ -9,14 +9,12 @@ import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
 public class TestExpenseTracker {
 
     private ExpenseEntry entry0;
     private ExpenseEntry entry1;
     private ExpenseEntry entry2;
     private ExpenseTracker myExpenseTracker;
-    
 
     @BeforeEach
     void runBefore() {
@@ -43,16 +41,15 @@ public class TestExpenseTracker {
 
     @Test
     void testAddExpenseEntry() {
-        //empty list
+        // empty list
         assertEquals(0, myExpenseTracker.getListOfExpenseEntries().size());
 
-        //add one
+        // add one
         myExpenseTracker.addExpenseEntry(entry0);
         assertEquals(1, myExpenseTracker.getListOfExpenseEntries().size());
         assertEquals("ramen", myExpenseTracker.getListOfExpenseEntries().get(0).getName());
-        
-        
-        //add two
+
+        // add two
         myExpenseTracker.addExpenseEntry(entry1);
         entry1.setId(1);
         assertEquals(2, myExpenseTracker.getListOfExpenseEntries().size());
@@ -66,15 +63,16 @@ public class TestExpenseTracker {
         myExpenseTracker.addExpenseEntry(entry1);
         entry1.setId(1);
 
-        myExpenseTracker.editExpenseEntry("sushi", "Food", 300, "expensive sushi", LocalDate.of(2024, 7, 15),0);
+        myExpenseTracker.editExpenseEntry("sushi", "Food", 300, "expensive sushi", LocalDate.of(2024, 7, 15), 0);
         assertEquals("sushi", myExpenseTracker.getListOfExpenseEntries().get(0).getName());
         assertEquals("Food", myExpenseTracker.getListOfExpenseEntries().get(0).getCategory());
         assertEquals(300, myExpenseTracker.getListOfExpenseEntries().get(0).getExpenseAmount());
         assertEquals("expensive sushi", myExpenseTracker.getListOfExpenseEntries().get(0).getNote());
         assertEquals(LocalDate.of(2024, 7, 15), myExpenseTracker.getListOfExpenseEntries().get(0).getDate());
         assertEquals(0, myExpenseTracker.getListOfExpenseEntries().get(0).getId());
-        
-        myExpenseTracker.editExpenseEntry("compass card", "Transportation", 500, "discount for compass card", LocalDate.of(2024, 7, 10),1);
+
+        myExpenseTracker.editExpenseEntry("compass card", "Transportation", 500, "discount for compass card",
+                LocalDate.of(2024, 7, 10), 1);
         assertEquals("compass card", myExpenseTracker.getListOfExpenseEntries().get(1).getName());
         assertEquals("Transportation", myExpenseTracker.getListOfExpenseEntries().get(1).getCategory());
         assertEquals(500, myExpenseTracker.getListOfExpenseEntries().get(1).getExpenseAmount());
@@ -92,7 +90,7 @@ public class TestExpenseTracker {
         assertEquals(1, myExpenseTracker.getListOfExpenseEntries().size());
         myExpenseTracker.deleteExpenseEntry(0);
         assertEquals(0, myExpenseTracker.getListOfExpenseEntries().size());
-        
+
     }
 
     @Test
@@ -134,21 +132,21 @@ public class TestExpenseTracker {
 
     @Test
     void testGetTotalExpenseAmount() {
-        //empty list
+        // empty list
         assertEquals(0, myExpenseTracker.getTotalExpenseAmount());
 
-        //one entry in list
+        // one entry in list
         myExpenseTracker.addExpenseEntry(entry0);
         assertEquals(18.50, myExpenseTracker.getTotalExpenseAmount());
 
-        //multiple entries in list
+        // multiple entries in list
         myExpenseTracker.addExpenseEntry(entry1);
-        assertEquals((100+18.50), myExpenseTracker.getTotalExpenseAmount());
+        assertEquals((100 + 18.50), myExpenseTracker.getTotalExpenseAmount());
     }
 
     @Test
     void testListOfExpenseEntriesToJson() {
-       
+
         myExpenseTracker.addExpenseEntry(entry0);
         myExpenseTracker.addExpenseEntry(entry1);
 
@@ -159,17 +157,17 @@ public class TestExpenseTracker {
         assertEquals("ramen", entry0JsonObject.getString("name"));
         assertEquals("Food", entry0JsonObject.getString("category"));
         assertEquals(18.50, entry0JsonObject.getDouble("expenseAmount"));
-        assertEquals("my friend's birthday dinner",entry0JsonObject.getString("note"));
+        assertEquals("my friend's birthday dinner", entry0JsonObject.getString("note"));
         assertEquals(LocalDate.of(2024, 7, 15), entry0JsonObject.get("date"));
         assertEquals(0, entry0JsonObject.getInt("id"));
-        
+
         assertEquals("compass card", entry1JsonObject.getString("name"));
         assertEquals("Transportation", entry1JsonObject.getString("category"));
         assertEquals(100, entry1JsonObject.getDouble("expenseAmount"));
-        assertEquals("monthly compass card",entry1JsonObject.getString("note"));
+        assertEquals("monthly compass card", entry1JsonObject.getString("note"));
         assertEquals(LocalDate.of(2024, 7, 15), entry1JsonObject.get("date"));
         assertEquals(1, entry1JsonObject.getInt("id"));
-        
+
     }
 
 }
