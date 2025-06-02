@@ -1,6 +1,6 @@
 # My Personal Project
 
-## Personal Finance & Expense Tracker 
+## Personal Finance & Expense Tracker (CPSC210 Java Project)
 
 ### Who will use it? 
 This application is intended for anyone who wants to keep track of their weekly/monthly expenses! **It could be a great tool for budgeting and avoiding the habit of overspending!**
